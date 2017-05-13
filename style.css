@@ -1,0 +1,63 @@
+header h1 {
+  height: auto;
+  width: auto;
+  font-family: 'futura', helvetica, arial;
+  font-size: 72px;
+  background-color: #777;
+  color: white;
+  text-align: center;
+  border: 1px dotted black;
+  margin-bottom: 0.2em;
+}
+
+header img {
+  height: 26em;
+  /*border-radius: 50%;*/
+  text-align: center;
+  float: left;
+  padding-right: 1em;
+}
+
+main img {
+  border-radius: 50%;
+}
+
+#firstImg {
+  box-shadow: 3px 3px 3px red;
+  margin: 1em;
+}
+
+#secondImg {
+  box-shadow: 3px 3px 3px white;
+  margin: 1em;
+}
+
+#thirdImg {
+  box-shadow: 3px 3px 3px blue;
+  margin: 1em;
+}
+
+#fourthImg {
+  box-shadow: 3px 3px 3px white;
+  margin: 1em;
+}
+
+#gray {
+  font-family: 'futura', helvetica, arial;
+  font-size: 14px;
+  background-color: #777;
+  color: white;
+  border: 1px dotted black;
+  margin: 30px;
+  padding: 40px;
+}
+
+#white {
+  font-family: 'futura', helvetica, arial;
+  font-size: 14px;
+  background-color: #777;
+  color: white;
+  border: 1px dotted black;
+  margin: 30px;
+  padding: 40px;
+}
