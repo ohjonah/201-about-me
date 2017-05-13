@@ -8,53 +8,54 @@ var playGameOneQuestion = prompt('How about we play a game to get to know me? Re
 
 var sum = 0;
 
+var gameOneCounter = 0;
+var gameOneCountDown = 4;
+
 // GAME ONE
 
-if (defaultAnswersArr.indexOf(playGameOneQuestion) <= 3) {
-  console.log('YES - position of users answers in defaultAnswersArr: ', defaultAnswersArr.indexOf(playGameOneQuestion));
-
+function gameOne() {
   var number;
-  var gameOneCounter = 0;
-  var gameOneAntiCounter = 4;
   var flagOne;
 
-  while (number !== 5 && gameOneCounter !== 4) { // while number is not 5, run some code. if gameOneAntiCounter = 0, break
-    number = parseInt(prompt('How many letters are in my first name?'));
+  if (defaultAnswersArr.indexOf(playGameOneQuestion) <= 3) {
+    console.log('YES - position of users answers in defaultAnswersArr: ', defaultAnswersArr.indexOf(playGameOneQuestion));
 
-    if (number < 5) {
-      gameOneAntiCounter--;
-      gameOneCounter++;
-      alert('My name is longer than that! You have ' + gameOneAntiCounter + ' tries left!');
-      console.log('number of attempts:', gameOneCounter);
-      console.log('user number:', number);
+    while (number !== 5 && gameOneCounter !== 4) {
+      number = parseInt(prompt('How many letters are in my first name?'));
 
-    } else if (number > 5) {
-      gameOneAntiCounter--;
-      gameOneCounter++;
-      alert('My name is shorter than that!  You have ' + gameOneAntiCounter + ' tries left!');
-      console.log('number of attempts:', gameOneCounter);
-      console.log('user number:', number);
+      if (number < 5) {
+        gameOneCountDown--;
+        gameOneCounter++;
+        alert('My name is longer than that! You have ' + gameOneCountDown + ' tries left!');
+        console.log('user guess: ' +  number + '; ' + ' attempts: ' + gameOneCounter);
 
-    } else if (number === 5) {
-      flagOne = true;
+      } else if (number > 5) {
+        gameOneCountDown--;
+        gameOneCounter++;
+        alert('My name is shorter than that!  You have ' + gameOneCountDown + ' tries left!');
+        console.log('user guess: ' +  number + '; ' + ' attempts: ' + gameOneCounter);
 
-    } else {
-      gameOneAntiCounter--;
-      gameOneCounter++;
-      alert('Please enter a number! Counts as a try! ' + gameOneAntiCounter + ' tries left!');
-      console.log('number of attempts:', gameOneCounter);
-      console.log('user number:', number);
+      } else if (number === 5) {
+        flagOne = true;
+        console.log('user guess: ' +  number + '; ' + ' attempts: ' + gameOneCounter);
+
+      } else {
+        gameOneCountDown--;
+        gameOneCounter++;
+        alert('Please enter a number! Counts as a try! ' + gameOneCountDown + ' tries left!');
+        console.log('user guess: ' +  number + '; ' + ' attempts: ' + gameOneCounter);
+      }
     }
-  }
 
-  if (number === 5) {
-    alert('You win! I have 5 letters in my name.');
-  } else if (gameOneCounter === 4) {
-    alert('You lose! Oh well! Let\'s play another game');
-  }
+    if (number === 5) {
+      alert('You win! I have 5 letters in my name.');
+    } else if (gameOneCounter === 4) {
+      alert('You lose! Oh well! Let\'s play another game');
+    }
+}
 
-  // game two
-
+// game two
+function gameTwo() {
   var greeting = prompt('Let\'s see if our names have letters in common! Ready? (Y/N)').toUpperCase();
 
   if (defaultAnswersArr.indexOf(greeting) <= 3 && defaultAnswersArr.indexOf(greeting) > 0) {
@@ -85,6 +86,11 @@ if (defaultAnswersArr.indexOf(playGameOneQuestion) <= 3) {
     alert('We have ' + sum + ' letters in common!');
 
     alert('Now that you know my first name, let\'s guess my last name!');
+}
+
+function gameThree() {
+
+}
 
     var lastNameArr = ['O', 'H'];
     var flagTwo;
