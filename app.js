@@ -1,156 +1,100 @@
-'use strict';
+var username;
 
-var userName = prompt('Hi! What\'s your name?');
-
-var defaultAnswersArr = ['Y', 'YA', 'YAH', 'YES', 'N', 'NA', 'NAH', 'NO'];
-
-var playGameOneQuestion = prompt('How about we play a game to get to know me? Ready? (Y/N)').toUpperCase();
-
-// game one variables
 var gameOneCounter = 0;
-var gameOneFlagOne;
+var gameTwoCounter = 0;
+var gameThreeCounter = 0;
 
-// game two variables
-var sum = 0;
+var gameOneFlag = false;
+var gameThreeFlag = false;
 
-// game three variables
-var gameTwoFlagOne;
-var gameTwoCountDown = 6;
-
-function capitalFirstLetter(userFirstName) {
-  userName = userFirstName.charAt(0).toUpperCase() + userName.slice(1);
+function grabUsername() {
+  username = prompt('What is your name?');
 }
 
-// GAME ONE
 function gameOne() {
-  var number;
-  var gameOneCountDown = 4;
+  alert('Let\'s play a game! Guess how many letters are in my name!');
 
-  if (defaultAnswersArr.indexOf(playGameOneQuestion) <= 3) {
-    console.log('YES - position of users answers in defaultAnswersArr: ', defaultAnswersArr.indexOf(playGameOneQuestion));
-
-    while (number !== 5 && gameOneCounter !== 4) {
-      number = parseInt(prompt('How many letters are in my first name?'));
-
-      if (number < 5) {
-        gameOneCountDown--;
-        gameOneCounter++;
-        alert('My name is longer than that! You have ' + gameOneCountDown + ' tries left!');
-        console.log('user guess: ' +  number + '; ' + ' attempt: ' + gameOneCounter);
-
-      } else if (number > 5) {
-        gameOneCountDown--;
-        gameOneCounter++;
-        alert('My name is shorter than that!  You have ' + gameOneCountDown + ' tries left!');
-        console.log('user guess: ' +  number + '; ' + ' attempt: ' + gameOneCounter);
-
-      } else {
-        gameOneCountDown--;
-        gameOneCounter++;
-        alert('Please enter a number! Counts as a try! ' + gameOneCountDown + ' tries left!');
-        console.log('user guess: ' +  number + '; ' + ' attempt: ' + gameOneCounter);
-      }
+  while (gameOneGuess !== 5 && gameOneCounter !== 5) {
+    var gameOneGuess = parseInt(prompt('How many letters do you think are in my name?'));
+    console.log(gameOneCounter);
+    if (gameOneGuess < 5) {
+      alert('Too low! ' + (4 - gameOneCounter) + ' tries left!');
+      gameOneCounter++;
+    } else if (gameOneGuess > 5) {
+      alert('Too high! ' + (4 - gameOneCounter) + ' tries left!');
+      gameOneCounter++;
+    } else if (gameOneGuess === 5) {
+      gameOneFlag = true;
+      alert('Yup, I have 5 letters in my name! You got it in ' + gameOneCounter + ' tries! ');
     }
-
-  } else if (defaultAnswersArr.indexOf(playGameOneQuestion) > 3 && defaultAnswersArr.indexOf(playGameOneQuestion) < 8) {
-    var greetingQuestionTwo = prompt('Do you like having fun? (Y/N)').toUpperCase();
-
-    if ((defaultAnswersArr.indexOf(playGameOneQuestion) > 3 && defaultAnswersArr.indexOf(playGameOneQuestion) < 8) && (defaultAnswersArr.indexOf(greetingQuestionTwo) > 3 && defaultAnswersArr.indexOf(greetingQuestionTwo) < 8)) {
-      alert('Two NO\'s in a row?? You\'re no fun!');
-    } else {
-      alert('Well, we can play a different game later!');
-    }
-
-  } else {
-    alert('Please put a valid response!');
   }
 
-  if (number === 5) {
-    alert('You win! I have 5 letters in my name.');
-    gameOneFlagOne = true;
-    console.log('user guess: ' +  number + '; ' + ' attempt: ' + gameOneCounter);
-  } else if (gameOneCounter === 4) {
-    gameOneFlagOne = false;
-    alert('You lose! Oh well! Let\'s play another game');
+  if (gameOneFlag === false) {
+    alert('Better luck next time! How about another game?');
   }
 }
 
-
-// game two
 function gameTwo() {
-  var greeting = prompt('Let\'s see if our names have letters in common! Ready? (Y/N)').toUpperCase();
+  var myLetters = ['J', 'O', 'N', 'A', 'H'];
+  alert('Do we have letters in common? Let\'s find out! (Y/N)');
 
-  if (defaultAnswersArr.indexOf(greeting) <= 3 && defaultAnswersArr.indexOf(greeting) > 0) {
-    console.log(defaultAnswersArr.indexOf(greeting));
-    var lettersArr = ['J', 'O', 'N', 'A', 'H'];
-    var questionAnswersArr = [];
-    var userLetterArr = [];
+  for (var i = 0; i < myLetters.length; i++) {
+    var answer = prompt('Do you have a(n) ' + myLetters[i] + ' in your name?').toUpperCase();
 
-    for (var i = 0; i < lettersArr.length; i++) {
-      var letterQuestionYesNo = prompt('Do you have a "' + lettersArr[i] + '" in your first name?').toUpperCase();
-      console.log('user has "' + lettersArr[i] + '" in their first name? ' + letterQuestionYesNo);
-
-      if (defaultAnswersArr.indexOf(letterQuestionYesNo) <= 3) {
-        questionAnswersArr.push(1);
-        userLetterArr.push(lettersArr[i]);
-      } else {
-        questionAnswersArr.push(0);
-      }
+    if (answerConvertor(answer)) {
+      console.log('answer' + [i] + ' ' + answerConvertor(answer));
+      gameTwoCounter++;
     }
-
-    console.log('user response in an array: ' + questionAnswersArr + '. user response joined: ' + questionAnswersArr.join('') + '.');
-
-    for (var j = 0; j < questionAnswersArr.length; j++) {
-      sum += questionAnswersArr[j];
-    }
-    console.log('total sum:', sum);
-
-    alert('We have ' + sum + ' letters in common!');
-
-    alert('Now that you know my first name, let\'s guess my last name!');
   }
+  alert('Looks like we have ' +  gameTwoCounter + ' letters in common!');
 }
 
 function gameThree() {
 
-  var lastNameArr = ['O', 'H'];
+  while (gameThreeFlag !== false || gameThreeCounter !== 6) {
+    var gameThreeAnswer = prompt('Let\'s play one more! What letters do you think are in my last name? Guess a letter!').toUpperCase();
 
-  while (!gameTwoFlagOne && gameTwoCountDown !== 0){
-    var gameTwoQuestion = prompt('Let\'s guess one letter of my last name! What letter do you choose? (A-Z)').toUpperCase();
+    if (gameThreeAnswer === 'H' || gameThreeAnswer === 'O') {
+      gameThreeFlag = true;
+      alert('That\'s right! ' + gameThreeAnswer + ' is a letter of my last name!');
+      break;
 
-    for (var k = 0; k < lastNameArr.length; k++) {
-      if(gameTwoQuestion === lastNameArr[k]) {
-        gameTwoFlagOne = true;
-        console.log('flag status:', gameTwoFlagOne);
-      }
+    } else {
+      gameThreeCounter++;
+      alert('You have ' + (6 - gameThreeCounter) + ' chances left!');
     }
-    if (!gameTwoFlagOne) {
-      gameTwoCountDown--;
-      alert('Keep guessing! You have ' + gameTwoCountDown + ' tries left!');
-      gameTwoFlagOne = false;
-    }
-  }
-
-  if (gameTwoFlagOne) {
-    alert('That\'s right! ' + gameTwoQuestion + ' is a letter of my last name! This took you ' + (6 - gameTwoCountDown) + ' tries!');
   }
 }
 
-function endOfGameSummary() {
-  if (gameOneFlagOne === true && gameTwoFlagOne === true) {
-    alert(userName + '\'s Question Summary: You guessed how many letters are in my last name in ' + gameOneCounter + ' tries! We also have ' + sum + ' letters in common! You also guessed ' +  gameTwoCountDown + ' tries!');
-  } else if (gameOneFlagOne === false && gameTwoFlagOne === true) {
-    alert(userName + '\'s Question Summary: Looks like you weren\'t able to guess the letters in my name, but we have ' + sum + ' letters in common! You also guessed ' +  gameTwoCountDown + ' tries!');
-  } else if (gameOneFlagOne === true && gameTwoFlagOne === false) {
-    alert(userName + '\'s Question Summary: You guessed how many letters are in my last name in ' + gameOneCounter + ' tries! We also have ' + sum + ' letters in common! You didn\'t guess any letters in my last name though!');
-  } else if (gameOneFlagOne === false && gameTwoFlagOne === false) {
-    alert(userName + '\'s Question Summary: You didn\'t guess the number of letters in my first name or any letters of my last name! But we found out we have ' + sum + ' letters in common!');
+function gameSummary() {
+  if (gameOneFlag === true && gameThreeFlag === true) {
+    alert(username + ': Great job! It took you ' + (4 - gameOneCounter) + ' to guess the letters in my first name. We also learned that we have ' + gameTwoCounter + ' letters in common. You also found out one of the letters of my last name in ' + gameThreeCounter + ' tries!');
+
+  } else if (gameOneFlag === true && gameThreeFlag === false) {
+    alert(username + ': You weren\'t able to guess a letter in my last name, but you did guess how many letters were in my first name! We also found out we have ' + gameTwoCounter + ' in common!');
+
+  } else if (gameOneFlag === false && gameThreeFlag === true) {
+    alert(username + ': You couldn\'t guess how many letters were in my first name, but you did guess a letter in my last name! We also found out that we have ' + gameTwoCounter + ' in common!');
+
+  } else if (gameOneFlag === false && gameThreeFlag === false) {
+    alert(username + ': You didn\'t guess the number of letters in my first name or any of the letters in my last name. But we did find out that we have ' + gameTwoCounter + ' letters in common!');
   }
 }
 
+function answerConvertor(answer) {
+  var possibleAnswers = ['Y', 'YA', 'YAH', 'YES', 'N', 'NA', 'NAH', 'NO'];
 
-capitalFirstLetter(userName);
+  if (possibleAnswers.indexOf(answer) === -1) {
+    return 'Return a valid response!';
+  } else if (possibleAnswers.indexOf(answer) < 4) {
+    return true;
+  } else {
+    return false;
+  }
+}
+
+grabUsername();
 gameOne();
 gameTwo();
 gameThree();
-endOfGameSummary();
+gameSummary();
